@@ -1,3 +1,4 @@
+
 const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
@@ -17,25 +18,31 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
 
-    const resultPerPage = 5;
+    const resultPerPage = 2;
     const productsCount = await Product.countDocuments();
-    const ApiFeature = new ApiFeatures(Product.find(), req.query)
+    const apiFeature = new ApiFeatures(Product.find(), req.query)
         .search()
         .filter()
-        .pagination(resultPerPage);
 
-    const products = await ApiFeature.query;
+    // let products = await apiFeature.query;
+    // let filteredProductsCount = products.length;
+    apiFeature.pagination(resultPerPage);
+
+    let products = await apiFeature.query;
+
     res.status(200).json({
         success: true,
         products,
-        productsCount
+        productsCount,
+        // filteredProductsCount,
+        resultPerPage
     });
 });
 
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
     if (!product) {
-        return next(new ErrorHandler(404, "Product not found"))
+        return next(new ErrorHandler(405, "Product not found"))
     } else {
         res.status(200).json({
             success: true,

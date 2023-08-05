@@ -35,7 +35,6 @@ exports.createOrder = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
-
 // get Single Order
 exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
 

@@ -1,3 +1,4 @@
+
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const User = require("../models/userModel");
@@ -143,7 +144,7 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-// get User Details
+// get logged in User Details
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
 
     const user = await User.findById(req.user.id);
@@ -238,7 +239,5 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
         message: "User deleted successfully",
     })
 })
-
-
 
 
