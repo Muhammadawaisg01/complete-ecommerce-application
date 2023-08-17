@@ -1,6 +1,9 @@
 
 import {
     CLEAR_ERRORS,
+    FORGOT_PASSWORD_FAIL,
+    FORGOT_PASSWORD_REQUEST,
+    FORGOT_PASSWORD_SUCCESS,
     LOAD_USER_FAIL,
     LOAD_USER_REQUEST,
     LOAD_USER_SUCCESS,
@@ -12,6 +15,9 @@ import {
     REGISTER_USER_FAIL,
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
+    RESET_PASSWORD_FAIL,
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_SUCCESS,
     UPDATE_PASSWORD_FAIL,
     UPDATE_PASSWORD_REQUEST,
     UPDATE_PASSWORD_RESET,
@@ -83,7 +89,7 @@ export const userReducer = (state = { user: {} }, action) => {
     }
 }
 
-export const profileReducer = (state = {}, action) => {
+export const profileReducer = (state = { isUpdated: false, loading: false }, action) => {
 
     switch (action.type) {
         case UPDATE_PROFILE_REQUEST:
@@ -95,7 +101,7 @@ export const profileReducer = (state = {}, action) => {
         case UPDATE_PROFILE_SUCCESS:
         case UPDATE_PASSWORD_SUCCESS:
             return {
-                ...state,
+                // ...state,
                 loading: false,
                 isUpdated: action.payload,
             }
@@ -119,8 +125,44 @@ export const profileReducer = (state = {}, action) => {
             }
         default:
             return {
-                state
+                state,
             }
     }
 }
 
+export const forgotPasswordReducer = (state = { loading: false, success: false, message: null }, action) => {
+
+    switch (action.type) {
+        case FORGOT_PASSWORD_REQUEST:
+        case RESET_PASSWORD_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            }
+        case FORGOT_PASSWORD_SUCCESS:
+            return {
+                loading: false,
+                message: action.payload
+            }
+        case RESET_PASSWORD_SUCCESS:
+            return {
+                loading: false,
+                success: action.payload
+            }
+        case FORGOT_PASSWORD_FAIL:
+        case RESET_PASSWORD_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        case CLEAR_ERRORS:
+            return {
+                error: null,
+            }
+        default:
+            return {
+                state,
+            }
+    }
+}

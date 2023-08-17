@@ -1,7 +1,7 @@
 
 import React, { Fragment } from 'react'
 import { useSelector } from 'react-redux'
-import { Navigate, Outlet, Route, redirect, useLocation } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 
 const Protected = ({ children }) => {
     const { isAuthenticated, loading } = useSelector((state) => state.user);

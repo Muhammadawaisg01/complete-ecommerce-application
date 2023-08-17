@@ -14,10 +14,12 @@ import { loadUser } from './actions/userAction';
 import Profile from "./components/User/Profile.js"
 import { useSelector } from 'react-redux';
 import UserOptions from "./components/layout/Header/UserOptions.js"
-// import ProtectedRoute from './components/Route/ProtectedRoute';
 import UpdateProfile from './components/User/UpdateProfile';
 import UpdatePassword from './components/User/UpdatePassword';
+import ForgotPassword from './components/User/ForgotPassword';
 import Protected from './components/Route/ProtectedRoute';
+import ResetPassword from './components/User/ResetPassword';
+import Cart from './components/Cart/Cart.js';
 
 
 function App() {
@@ -57,6 +59,13 @@ function App() {
 
         <Route exact path='/password/update' element={
           <Protected ><UpdatePassword /></Protected>
+        } />
+
+        <Route exact path='/password/forgot' element={<ForgotPassword />} />
+        <Route exact path='/password/reset/:token' element={<ResetPassword />} />
+
+        <Route exact path='/cart' element={
+          <Protected ><Cart /></Protected>
         } />
 
       </Routes>

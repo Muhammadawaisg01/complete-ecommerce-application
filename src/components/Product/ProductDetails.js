@@ -7,6 +7,7 @@ import { getProductDetails } from "../../actions/productAction"
 import { useParams } from 'react-router-dom';
 import { Rating } from "@material-ui/lab";
 import { useAlert } from "react-alert";
+import { addItemsToCart } from '../../actions/cartAction';
 
 const ProductDetails = ({ }) => {
 
@@ -33,22 +34,31 @@ const ProductDetails = ({ }) => {
     }, [dispatch, id]);
 
     const increaseQuantity = () => {
-        if (product.Stock <= quantity) return;
+        if (product.Stock <= quantity) {
+            return;
+        }
 
         const qty = quantity + 1;
         setQuantity(qty);
     };
 
     const decreaseQuantity = () => {
-        if (1 >= quantity) return;
+        if (1 >= quantity) {
+            return
+        };
 
         const qty = quantity - 1;
         setQuantity(qty);
     };
 
+    let numberOfCount = 1;
     const addToCartHandler = () => {
-        // dispatch(addItemsToCart(id, quantity));
-        alert.success("Item Added To Cart");
+        dispatch(addItemsToCart(id, quantity));
+        // alert.success("Item Added To Cart");
+
+        localStorage.setItem(numberOfCount, numberOfCount += 1);
+        let count = localStorage.getItem(numberOfCount);
+        // console.log(count);
     };
 
     const submitReviewToggle = () => {
@@ -71,7 +81,7 @@ const ProductDetails = ({ }) => {
                 </Carousel>
             </div>
 
-            <div>
+            <div className='mainDiv'>
                 <div className="detailsBlock-1">
                     <h2>{product.name}</h2>
                     <p>Product # {product._id}</p>

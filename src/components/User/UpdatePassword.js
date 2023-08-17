@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import "../../styles/UpdatePassword.css";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, loadUser, updatePassword } from '../../actions/userAction';
@@ -52,7 +51,6 @@ const UpdatePassword = () => {
         if (isUpdated) {
             alert.success("Password Updated successfully");
             dispatch(loadUser());
-
             navigate("/account");
 
             dispatch({
@@ -66,7 +64,7 @@ const UpdatePassword = () => {
         <>
             {loading ? <Loader /> : (
                 <div className='updatePasswordContainer'>
-                    <MetaData title={"Forgot Password"} />
+                    <MetaData title={"Update Password"} />
                     <div className='updatePasswordBox'>
                         <h2 className='updatePasswordHeading'>Update Password</h2>
 
@@ -75,7 +73,7 @@ const UpdatePassword = () => {
                             encType="multipart/form-data"
                             onSubmit={updatePasswordSubmit}
                         >
-                            <div className="signUpPassword">
+                            <div>
                                 <VpnKeyIcon />
                                 <input
                                     type="password"
@@ -86,7 +84,7 @@ const UpdatePassword = () => {
                                     onChange={updatePasswordDataChange}
                                 />
                             </div>
-                            <div className="signUpPassword">
+                            <div>
                                 <LockOpenIcon />
                                 <input
                                     type="password"
@@ -97,7 +95,7 @@ const UpdatePassword = () => {
                                     onChange={updatePasswordDataChange}
                                 />
                             </div>
-                            <div className="signUpPassword">
+                            <div>
                                 <LockIcon />
                                 <input
                                     type="password"

@@ -17,7 +17,13 @@ const UpdateProfile = () => {
     const alert = useAlert();
 
     const { user } = useSelector((state) => state.user);
+
     const { error, isUpdated, loading } = useSelector((state) => state.profile);
+
+    // const isUpdated1 = null;
+    // loading === false && (
+    //     isUpdated1 = { isUpdated } = useSelector((state) => state.profile)
+    // )
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -25,34 +31,37 @@ const UpdateProfile = () => {
     const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
 
     const updateProfileSubmit = (e) => {
+
         e.preventDefault();
 
-        const myForm = new FormData();
-        myForm.set("name", name);
-        myForm.set("email", email);
-        myForm.set("avatar", avatar);
         dispatch(updateProfile(name, email));
-        console.log("Value of isUpdated   ", isUpdated);
-        console.log("loading is    ", loading);
 
-        // navigate("/account");
-
+        // window.location.href = "/account"
         return <Navigate to={"/account"} replace />
+
     };
 
-    const updateProfileDataChange = (e) => {
-        const reader = new FileReader();
+    // useEffect(() => {
+    //     if (isUpdated?.name) {
+    //         setName(isUpdated?.name)
+    //     }
+    // }, [isUpdated])
 
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setAvatarPreview(reader.result);
-                setAvatar(reader.result);
-            }
-        }
-        reader.readAsDataURL(e.target.files[0]);
-    }
+
+    // const updateProfileDataChange = (e) => {
+    //     const reader = new FileReader();
+
+    //     reader.onload = () => {
+    //         if (reader.readyState === 2) {
+    //             setAvatarPreview(reader.result);
+    //             setAvatar(reader.result);
+    //         }
+    //     }
+    //     reader.readAsDataURL(e.target.files[0]);
+    // }
 
     useEffect(() => {
+        console.log({ user }, { error }, { isUpdated })
         if (user) {
             setName(user.name);
             setEmail(user.email);
@@ -66,13 +75,13 @@ const UpdateProfile = () => {
         if (isUpdated) {
             alert.success("Profile Updated successfully");
             dispatch(loadUser());
-            navigate("/account");
+            // navigate("/account");
 
             dispatch({
                 type: UPDATE_PROFILE_RESET,
             });
         }
-    }, [isUpdated, alert, user, error, dispatch, navigate])
+    }, [isUpdated, alert, user, error])
 
     return (
         <>
@@ -83,7 +92,7 @@ const UpdateProfile = () => {
 
                         <form
                             className="updateProfileForm"
-                            encType="multipart/form-data"
+                            // encType="multipart/form-data"
                             onSubmit={updateProfileSubmit}
                         >
                             <div className="updateProfileName">
@@ -108,7 +117,7 @@ const UpdateProfile = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
-                            <div id="updateProfileImage">
+                            {/* <div id="updateProfileImage">
                                 <img src={avatarPreview} alt="Avatar Preview" />
                                 <input
                                     type="file"
@@ -116,8 +125,9 @@ const UpdateProfile = () => {
                                     accept="image/*"
                                     onChange={updateProfileDataChange}
                                 />
-                            </div>
-                            <input type="submit" value="Update" className="updateProfileBtn" />
+                            </div> */}
+                            <button type='submit' className='updateProfileBtn'>Update</button>
+                            {/* <input type="submit" value="Update" className="updateProfileBtn" /> */}
                         </form>
                     </div>
                 </div>
