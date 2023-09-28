@@ -54,10 +54,11 @@ const ProductDetails = ({ }) => {
     let numberOfCount = 1;
     const addToCartHandler = () => {
         dispatch(addItemsToCart(id, quantity));
-        // alert.success("Item Added To Cart");
 
-        localStorage.setItem(numberOfCount, numberOfCount += 1);
-        let count = localStorage.getItem(numberOfCount);
+        alert.success("Item Added To Cart");
+
+        // localStorage.setItem(numberOfCount, numberOfCount += 1);
+        // let count = localStorage.getItem(numberOfCount);
         // console.log(count);
     };
 
